@@ -1,17 +1,27 @@
-const express = require('express')
-const router = express.Router()
-const {getGoals, setGoal, updateGoals, deleteGoal} = require('../controllers/goalController')
-
+const express = require("express");
+const router = express.Router();
+const {
+    getGoals,
+    setGoal,
+    updateGoals,
+    deleteGoal,
+} = require("../controllers/goalController");
 
 // router.get('/', (req, res) => {
 //     res.status(200).json({message: 'Get goals'})
 // })
-router.get('/', getGoals)
 
-router.post('/', setGoal)
+// after creating controllers we can simplify the code
+// router.get('/', getGoals)
 
-router.put('/:id', updateGoals)
+// router.post('/', setGoal)
 
-router.delete('/:id', deleteGoal)
+// router.put('/:id', updateGoals)
 
-module.exports = router
+// router.delete('/:id', deleteGoal)
+
+// we can clean up the above code more
+router.route("/").get(getGoals).post(setGoal);
+router.route("/:id").put(updateGoals).delete(deleteGoal);
+
+module.exports = router;
