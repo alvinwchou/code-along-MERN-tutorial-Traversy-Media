@@ -39,7 +39,8 @@ const registerUser = asyncHandler(async (req, res) => {
         res.status(201).json({
             _id: user.id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            token: generateToken(user._id)
         })
     } else {
         res.status(400)
@@ -62,7 +63,8 @@ const loginUser = asyncHandler(async (req, res) => {
         res.json({
             _id: user.id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            token: generateToken(user._id)
         })
     } else {
         res.status(400)
@@ -75,7 +77,16 @@ const loginUser = asyncHandler(async (req, res) => {
 // @access  Public
 const getMe = asyncHandler(async (req, res) => {
     res.json({message: "User data display"})
+
 })
+
+// Generate JWT
+const generateToken = (id) => {
+    // sign in with a new token with this id, and with this JWT_SECRET used, and will expire in 30 days
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: '30d'
+    })
+}
 
 module.exports = {
     registerUser, loginUser, getMe
