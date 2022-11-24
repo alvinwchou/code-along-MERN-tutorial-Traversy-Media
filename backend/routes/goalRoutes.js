@@ -6,6 +6,7 @@ const {
     updateGoals,
     deleteGoal,
 } = require("../controllers/goalController");
+const { protect } = require("../middleware/authMiddleware");
 
 // router.get('/', (req, res) => {
 //     res.status(200).json({message: 'Get goals'})
@@ -21,7 +22,7 @@ const {
 // router.delete('/:id', deleteGoal)
 
 // we can clean up the above code more
-router.route("/").get(getGoals).post(setGoal);
-router.route("/:id").put(updateGoals).delete(deleteGoal);
+router.route("/").get(protect, getGoals).post(protect, setGoal);
+router.route("/:id").put(protect, updateGoals).delete(protect, deleteGoal);
 
 module.exports = router;
