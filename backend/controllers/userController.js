@@ -51,7 +51,23 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route   POST api/users/login
 // @access  Public
 const loginUser = asyncHandler(async (req, res) => {
-    res.json({message: "Login User"})
+    const {email, password} = req.body
+
+    // check for user email
+    const user = await User.findOne({email})
+
+    // check for user password
+    // because the password is hashed we have to use bcrypt and pass it the password user inputted and the saved password
+    if (user && (await bcrypt.compare(password, user.password))) {
+        res.json({
+            _id: user.id,
+            name: user.name,
+            email: user.email
+        })
+    } else {
+        res.status(400)
+        throw new Error('Invalid credentials')
+    }
 })
 
 // @desc    Get user data
