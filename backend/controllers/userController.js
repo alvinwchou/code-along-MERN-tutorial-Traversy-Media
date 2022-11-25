@@ -76,13 +76,15 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route   GET api/users/me (get the current user info by sending the the token and getting th id from the token  )
 // @access  Private
 const getMe = asyncHandler(async (req, res) => {
-    const { _id, name, email} = await User.findById(req.user.id)
+    // const { _id, name, email} = await User.findById(req.user.id)
 
-    res.status(200).json({
-        id: _id,
-        name,
-        email
-    })
+    // res.status(200).json({
+    //     id: _id,
+    //     name,
+    //     email
+    // })
+    // because in the middleware we got the user from the token we just need to return req.user
+    res.status(200).json(req.user)
 })
 
 // Generate JWT
