@@ -1,22 +1,27 @@
 // this is for making the http request and storing the information in local storage
 
-import axios from 'axios'
+import axios from "axios";
 
-const API_URL = '/api/user/'
+const API_URL = "/api/users/";
 
 // register user
 const register = async (userData) => {
-    const response = await axios.post(API_URL, userData)
+    const response = await axios.post(API_URL, userData);
 
     if (response.data) {
-        localStorage.setItem('user', JSON.stringify(response.data))
+        localStorage.setItem("user", JSON.stringify(response.data));
     }
 
-    return response.data
-}
+    return response.data;
+};
+
+// logout user
+const logout = () => {
+    localStorage.removeItem("user");
+};
 
 const authService = {
-    register
-}
+    register, logout
+};
 
-export default authService
+export default authService;
