@@ -37,8 +37,6 @@ function Dashboard() {
         return <Spinner />;
     }
 
-    console.log(goals.length);
-
     return (
         <>
             <section className="heading">
